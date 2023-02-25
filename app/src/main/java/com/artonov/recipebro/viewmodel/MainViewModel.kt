@@ -26,7 +26,7 @@ class MainViewModel() : ViewModel() {
 
     private fun fetchRecipeList() {
         viewModelScope.launch {
-            repository.remote.getRecipe().collect { res ->
+            repository.remote?.getRecipe()?.collect { res ->
                 _recipeList.value = res
             }
         }

@@ -1,5 +1,6 @@
 package com.artonov.recipebro.ui
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -52,6 +53,14 @@ class MainActivity : AppCompatActivity() {
                         setHasFixedSize(true)
                         adapter = recipeAdapter
                     }
+
+                    recipeAdapter.setOnItemClickCallback(object: RecipeAdapter.IOnItemCallBack {
+                        override fun onItemClickCallback(data: MealsItem) {
+                            val intent = Intent(this@MainActivity,DetailActivity::class.java)
+                            intent.putExtra(DetailActivity.EXTRA_RECIPE,data)
+                            startActivity(intent)
+                        }
+                    })
 
                     handleUi(
                         recyclerView = true,
