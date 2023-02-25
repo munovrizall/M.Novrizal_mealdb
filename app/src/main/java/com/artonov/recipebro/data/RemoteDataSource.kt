@@ -49,6 +49,10 @@ class RemoteDataSource(private val recipeApi: RecipeApi) {
                 val responseBody = recipeDetail.body()
 
                 if (responseBody != null) {
+                    Log.d(
+                        "apiServiceError",
+                        "Success statusCode:${recipeDetail.code()}, message:${recipeDetail.message()}"
+                    )
                     emit(NetworkResult.Success(responseBody))
                 } else {
                     emit(NetworkResult.Error("Can't fetch detail recipe."))

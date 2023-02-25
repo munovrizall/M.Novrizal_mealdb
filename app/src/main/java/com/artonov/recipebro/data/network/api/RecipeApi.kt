@@ -12,13 +12,13 @@ interface RecipeApi {
     @GET("api/json/v1/1/filter.php?c=Seafood")
     suspend fun getRecipeList() : Response<ResponseRecipe>
 
-    @GET("api/json/v1/1/lookup.php?i={idMeal}")
-    suspend fun getRecipeDetailById(
-        @Path("idMeal") idMeal:String
-    ):Response<RecipeDetail>
+//    @GET("api/json/v1/1/lookup.php?i={idMeal}")
+//    suspend fun getRecipeDetailById(
+//        @Path("idMeal") idMeal:String
+//    ):Response<RecipeDetail>
 
-//    @GET("api/json/v1/1/lookup.php")
-//    suspend fun getRecipeDetailById(@Query("i") idMealsItem: MealsItem
-//    ): Response<RecipeDetail>
+    @GET("api/json/v1/1/lookup.php")
+    suspend fun getRecipeDetailById(@Query("i") i: String
+    ): Response<RecipeDetail>
 
 }
