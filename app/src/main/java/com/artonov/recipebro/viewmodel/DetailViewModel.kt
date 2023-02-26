@@ -11,6 +11,7 @@ import com.artonov.recipebro.data.Repository
 import com.artonov.recipebro.data.network.Service
 import com.artonov.recipebro.data.network.handler.NetworkResult
 import com.artonov.recipebro.model.RecipeDetail
+import com.artonov.recipebro.model.RecipeDetailItem
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -29,7 +30,7 @@ class DetailViewModel(application: Application): AndroidViewModel(application) {
     private var _recipeDetail: MutableLiveData<NetworkResult<RecipeDetail>> = MutableLiveData()
     val recipeDetail: LiveData<NetworkResult<RecipeDetail>> = _recipeDetail
 
-    fun fetchRecipeDetail(idMeal: String) {
+    fun fetchRecipeDetail(idMeal: Int) {
         viewModelScope.launch {
             repository.remote!!.getRecipeDetailById(idMeal).collect { result ->
                 _recipeDetail.value = result

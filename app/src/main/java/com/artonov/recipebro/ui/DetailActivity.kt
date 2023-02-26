@@ -2,6 +2,7 @@ package com.artonov.recipebro.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.core.view.isVisible
@@ -10,14 +11,15 @@ import com.artonov.recipebro.data.network.handler.NetworkResult
 import com.artonov.recipebro.databinding.ActivityDetailBinding
 import com.artonov.recipebro.model.MealsItem
 import com.artonov.recipebro.model.RecipeDetail
-import com.artonov.recipebro.model.ResponseRecipe
+import com.artonov.recipebro.model.RecipeDetailItem
 import com.artonov.recipebro.viewmodel.DetailViewModel
+import com.bumptech.glide.Glide
 
 class DetailActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDetailBinding
     private val detailViewModel by viewModels<DetailViewModel>()
     private lateinit var recipeDetail: RecipeDetail
-
+    private var recipeId: RecipeDetailItem? = null
     companion object {
         const val EXTRA_RECIPE = "recipe"
     }
@@ -28,7 +30,8 @@ class DetailActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val recipe = intent.getParcelableExtra<MealsItem>(EXTRA_RECIPE)
-        detailViewModel.fetchRecipeDetail(recipe?.idMeal!!)
+        Log.d("test", recipe.toString())
+        detailViewModel.fetchRecipeDetail(recipe?.idMeal!!.toInt())
 
 //        detailViewModel.fetchGameDetail(recipe?.id)
 
@@ -48,8 +51,21 @@ class DetailActivity : AppCompatActivity() {
                     Toast.makeText(this, result.errorMessage, Toast.LENGTH_SHORT).show()
                 }
                 is NetworkResult.Success -> {
-                    binding.recipeDetail = result.data
-                    recipeDetail = result.data!!
+                    val res = result.data!!.meals
+                    for (recipeDetailItem in res!!) {
+                        recipeId = recipeDetailItem
+                        Log.d("apiServiceSuccesActivity", recipeDetailItem.toString())
+                        binding.recipeDetailItem = recipeDetailItem
+                        binding.apply {
+                            Glide.with(this@DetailActivity)
+                                .load(recipeDetailItem?.strMealThumb)
+                                .error(R.drawable.ic_launcher_background)
+                                .into(ivDetailRecipe)
+                        }
+                    }
+//                    binding.recipeDetailItem = result.data
+//                    recipeDetail = result.data!!
+                    Log.d("test", result.data.toString())
                     handleUi(
                         layoutWrapper = true,
                         progressbar = false,

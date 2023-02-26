@@ -4,15 +4,15 @@ import kotlinx.parcelize.Parcelize
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 
-//@Parcelize
-//data class RecipeDetail(
-//
-//	@field:SerializedName("meals")
-//	val meals: List<MealsItem?>? = null
-//) : Parcelable
-
 @Parcelize
 data class RecipeDetail(
+
+	@field:SerializedName("meals")
+	val meals: List<RecipeDetailItem?>? = null
+) : Parcelable
+
+@Parcelize
+data class RecipeDetailItem(
 
 	@field:SerializedName("strIngredient10")
 	val strIngredient10: String? = null,

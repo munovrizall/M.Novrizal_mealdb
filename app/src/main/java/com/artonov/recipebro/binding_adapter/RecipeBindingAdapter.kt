@@ -1,9 +1,12 @@
 package com.artonov.recipebro.binding_adapter
 
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.artonov.recipebro.R
+import com.artonov.recipebro.model.RecipeDetail
 import com.bumptech.glide.Glide
+import java.util.concurrent.Flow
 
 object RecipeBindingAdapter {
 
@@ -15,4 +18,16 @@ object RecipeBindingAdapter {
             .error(placeHolderDrawable)
             .into(imageView)
     }
+
+//    @BindingAdapter("setInstruction")
+//    @JvmStatic
+//    fun setInstruction(textView: TextView, instructions: List<RecipeDetail?>?) {
+//        val textInstruction =
+//            instructions?.map { instruction -> instruction?.strInstructions }?.joinToString(
+//                separator = " ",
+//                limit = 3,
+//                truncated = "..."
+//            )
+//        textView.text = textPublishers
+//    }
 }

@@ -4,6 +4,7 @@ import android.util.Log
 import com.artonov.recipebro.data.network.api.RecipeApi
 import com.artonov.recipebro.data.network.handler.NetworkResult
 import com.artonov.recipebro.model.RecipeDetail
+import com.artonov.recipebro.model.RecipeDetailItem
 import com.artonov.recipebro.model.ResponseRecipe
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -41,17 +42,17 @@ class RemoteDataSource(private val recipeApi: RecipeApi) {
         }
     }.flowOn(Dispatchers.IO)
 
-    suspend fun getRecipeDetailById(idMeal: String): Flow<NetworkResult<RecipeDetail>> = flow {
+    suspend fun getRecipeDetailById(idMeal: Int): Flow<NetworkResult<RecipeDetail>> = flow {
         try {
             emit(NetworkResult.Loading(true))
-            val recipeDetail = recipeApi.getRecipeDetailById(idMeal)
-            if (recipeDetail.isSuccessful) {
-                val responseBody = recipeDetail.body()
+            val recipeDetailItem = recipeApi.getRecipeDetailById(idMeal)
+            if (recipeDetailItem.isSuccessful) {
+                val responseBody = recipeDetailItem.body()
 
                 if (responseBody != null) {
                     Log.d(
                         "apiServiceError",
-                        "Success statusCode:${recipeDetail.code()}, message:${recipeDetail.message()}"
+                        "Success statusCode:${recipeDetailItem.code()}, message:${recipeDetailItem.message()}"
                     )
                     emit(NetworkResult.Success(responseBody))
                 } else {
@@ -61,7 +62,7 @@ class RemoteDataSource(private val recipeApi: RecipeApi) {
                 // request data failed
                 Log.d(
                     "apiServiceError",
-                    "statusCode:${recipeDetail.code()}, message:${recipeDetail.message()}"
+                    "statusCode:${recipeDetailItem.code()}, message:${recipeDetailItem.message()}"
                 )
                 emit(NetworkResult.Error("Failed to fetch data from server."))
             }

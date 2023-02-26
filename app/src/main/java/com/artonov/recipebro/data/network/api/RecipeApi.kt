@@ -2,6 +2,7 @@ package com.artonov.recipebro.data.network.api
 
 import com.artonov.recipebro.model.MealsItem
 import com.artonov.recipebro.model.RecipeDetail
+import com.artonov.recipebro.model.RecipeDetailItem
 import com.artonov.recipebro.model.ResponseRecipe
 import retrofit2.Response
 import retrofit2.http.GET
@@ -18,7 +19,6 @@ interface RecipeApi {
 //    ):Response<RecipeDetail>
 
     @GET("api/json/v1/1/lookup.php")
-    suspend fun getRecipeDetailById(@Query("i") i: String
+    suspend fun getRecipeDetailById(@Query("i") i: Int
     ): Response<RecipeDetail>
-
 }

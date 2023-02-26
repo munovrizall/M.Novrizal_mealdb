@@ -5,8 +5,8 @@
 
     <data>
         <variable
-            name="recipeDetail"
-            type="com.artonov.recipebro.model.RecipeDetail" />
+            name="recipeDetailItem"
+            type="com.artonov.recipebro.model.RecipeDetailItem" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -37,10 +37,10 @@
 
                 <ImageView
                     android:id="@+id/ivDetailRecipe"
-                    loadImageFromUrl="@{recipeDetail.strMealThumb}"
+                    loadImageFromUrl="@{recipeDetailItem.strMealThumb}"
                     android:layout_width="match_parent"
                     android:layout_height="250dp"
-                    android:scaleType="fitXY"
+                    android:scaleType="centerCrop"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
@@ -53,10 +53,12 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
-                    android:text="@{recipeDetail.strMeal}"
+                    android:layout_marginEnd="16dp"
+                    android:text="@{recipeDetailItem.strMeal}"
                     android:textColor="@color/black"
                     android:textSize="24sp"
                     android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/ivDetailRecipe"
                     tools:text="Escovitch Fish" />
@@ -69,7 +71,7 @@
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="16dp"
                     android:justificationMode="inter_word"
-                    android:text="@{recipeDetail.strInstructions}"
+                    android:text="@{recipeDetailItem.strInstructions}"
                     android:textColor="@color/black"
                     android:textSize="14sp"
                     app:layout_constraintBottom_toTopOf="@id/btnFavorite"
