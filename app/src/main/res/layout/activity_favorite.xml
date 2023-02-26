@@ -4,23 +4,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.MainActivity">
+    tools:context=".ui.FavoriteActivity">
 
     <TextView
-        android:id="@+id/tvFindRecipes"
+        android:id="@+id/tvFavoriteFood"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="24dp"
         android:fontFamily="@font/poppins_bold"
-        android:text="@string/find_recipes"
+        android:text="Favorite food: "
         android:textColor="@color/black"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvRecipesList"
+        android:id="@+id/rvFavoriteList"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="16dp"
@@ -28,8 +28,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvFindRecipes"
-        tools:listitem="@layout/item_row_recipes" />
+        app:layout_constraintTop_toBottomOf="@+id/tvFavoriteFood"
+        tools:listitem="@layout/item_row_favorite" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"
