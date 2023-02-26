@@ -13,6 +13,8 @@ import com.artonov.recipebro.data.network.handler.NetworkResult
 import com.artonov.recipebro.databinding.ActivityMainBinding
 import com.artonov.recipebro.model.MealsItem
 import com.artonov.recipebro.viewmodel.MainViewModel
+import com.google.android.material.bottomnavigation.LabelVisibilityMode
+import com.google.android.material.navigation.NavigationBarView
 
 class MainActivity : AppCompatActivity() {
     private val mainViewModel by viewModels<MainViewModel>()
@@ -27,7 +29,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         mainViewModel.recipeList.observe(this@MainActivity) { res ->
-            when(res) {
+            when (res) {
                 is NetworkResult.Loading -> {
                     handleUi(
                         recyclerView = false,
@@ -54,10 +56,10 @@ class MainActivity : AppCompatActivity() {
                         adapter = recipeAdapter
                     }
 
-                    recipeAdapter.setOnItemClickCallback(object: RecipeAdapter.IOnItemCallBack {
+                    recipeAdapter.setOnItemClickCallback(object : RecipeAdapter.IOnItemCallBack {
                         override fun onItemClickCallback(data: MealsItem) {
-                            val intent = Intent(this@MainActivity,DetailActivity::class.java)
-                            intent.putExtra(DetailActivity.EXTRA_RECIPE,data)
+                            val intent = Intent(this@MainActivity, DetailActivity::class.java)
+                            intent.putExtra(DetailActivity.EXTRA_RECIPE, data)
                             startActivity(intent)
                         }
                     })
@@ -69,6 +71,22 @@ class MainActivity : AppCompatActivity() {
                     )
                 }
             }
+        }
+
+        binding.bottomNavigationView.setOnNavigationItemSelectedListener {item ->
+            when(item.itemId) {
+                R.id.MainActivity -> {
+                    true
+                }
+                R.id.FavoriteActivity -> {
+                    val intent = Intent(this@MainActivity, FavoriteActivity::class.java)
+                    startActivity(intent)
+                    overridePendingTransition(0, 0)
+                    true
+                }
+                else -> {true}
+            }
+
         }
     }
 
