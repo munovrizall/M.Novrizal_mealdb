@@ -1,12 +1,17 @@
 package com.artonov.recipebro.ui
 
+import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
+import androidx.databinding.adapters.TextViewBindingAdapter.setText
 import com.artonov.recipebro.R
+import com.artonov.recipebro.data.database.MealEntity
 import com.artonov.recipebro.data.network.handler.NetworkResult
 import com.artonov.recipebro.databinding.ActivityDetailBinding
 import com.artonov.recipebro.model.MealsItem
@@ -20,6 +25,7 @@ class DetailActivity : AppCompatActivity() {
     private val detailViewModel by viewModels<DetailViewModel>()
     private lateinit var recipeDetail: RecipeDetail
     private var recipeId: RecipeDetailItem? = null
+
     companion object {
         const val EXTRA_RECIPE = "recipe"
     }
@@ -62,9 +68,25 @@ class DetailActivity : AppCompatActivity() {
                                 .error(R.drawable.ic_launcher_background)
                                 .into(ivDetailRecipe)
                         }
+                        val link = recipeDetailItem?.strSource.toString()
+
+                        binding.btnWeb.setOnClickListener() {
+                            try {
+                                openRecipe(link)
+                            } catch (e: Exception) {
+                                Toast.makeText(this, "Link not found", Toast.LENGTH_SHORT).show()
+                            }
+                        }
+
+                        binding.btnYoutube.setOnClickListener() {
+                            try {
+                                openRecipe(link)
+                            } catch (e: Exception) {
+                                Toast.makeText(this, "Link not found", Toast.LENGTH_SHORT).show()
+                            }
+                        }
                     }
-//                    binding.recipeDetailItem = result.data
-//                    recipeDetail = result.data!!
+
                     Log.d("test", result.data.toString())
                     handleUi(
                         layoutWrapper = true,
@@ -76,8 +98,69 @@ class DetailActivity : AppCompatActivity() {
         }
 
 
-//        isFavoriteGame(game)
+        isFavoriteMeal(recipe)
 
+    }
+
+    private fun isFavoriteMeal(mealSelected: MealsItem) {
+        detailViewModel.favoriteMealList.observe(this@DetailActivity) { res ->
+            val meal = res.find { fav ->
+                fav.meal!!.idMeal == mealSelected.idMeal
+            }
+            if (meal != null) {
+                binding.btnFavorite.apply {
+                    setText("Remove from Favorite")
+                    setTextColor(
+                        ContextCompat.getColor(
+                            this@DetailActivity,
+                            R.color.white
+                        )
+                    )
+                    setBackgroundColor(
+                        ContextCompat.getColor(
+                            this@DetailActivity,
+                            R.color.red
+                        )
+                    )
+                    setOnClickListener {
+                        deleteFavoriteMeal(meal.id)
+                    }
+                }
+            } else {
+                binding.btnFavorite.apply {
+                    setText("Add to favorite")
+                    setBackgroundColor(
+                        ContextCompat.getColor(
+                            this@DetailActivity,
+                            R.color.yellow
+                        )
+                    )
+                    setOnClickListener {
+                        insertFavoriteMeal()
+                    }
+                }
+            }
+        }
+    }
+
+
+    private fun deleteFavoriteMeal(mealEntityId: Int) {
+        val mealEntity = MealEntity(mealEntityId, recipeId)
+        detailViewModel.deleteFavoriteMeal(mealEntity)
+        Toast.makeText(this, "Successfully remove from favorite", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun insertFavoriteMeal() {
+        Log.d("test", recipeId.toString())
+        val mealEntity = MealEntity(meal = recipeId)
+        detailViewModel.insertFavoriteMeal(mealEntity)
+        Toast.makeText(this, "Successfully added to favorite", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun openRecipe(recipeLink: String) {
+        val intent = Intent(Intent.ACTION_VIEW)
+        intent.data = Uri.parse(recipeLink)
+        startActivity(intent)
     }
 
     private fun handleUi(

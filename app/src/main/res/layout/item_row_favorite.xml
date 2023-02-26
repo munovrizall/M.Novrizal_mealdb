@@ -6,6 +6,7 @@
     android:id="@+id/cardFavorite"
     android:layout_width="match_parent"
     android:layout_height="104dp"
+    android:layout_marginTop="8dp"
     android:layout_marginLeft="16dp"
     android:layout_marginRight="16dp"
     android:layout_marginBottom="16dp"
@@ -15,7 +16,9 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@drawable/row_bg"
+        >
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/ivFavorite"
@@ -39,7 +42,7 @@
             android:fontFamily="@font/poppins_semibold"
             android:text="@{data.strMeal}"
             android:textColor="@color/black"
-            android:textSize="16sp"
+            android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/imageView"
             app:layout_constraintStart_toEndOf="@+id/ivFavorite"

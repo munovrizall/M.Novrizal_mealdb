@@ -37,12 +37,12 @@ class FavoriteAdapter : RecyclerView.Adapter<FavoriteAdapter.FavoriteViewHolder>
 //                        .error(R.drawable.img_placeholder)
 //                        .into(ivPoster)
 //                    tvMeal.text = dataMeal!!.strMeal
+//                }
                 Glide.with(itemView.context)
                     .load(item.meal?.strMealThumb)
                     .error(R.drawable.ic_launcher_background)
                     .into(ivFavorite)
                 tvFavoriteTitle.text = item.meal?.strMeal
-//                }
                 itemView.setOnClickListener {
                     onFavoriteItemCallBack.onFavoriteItemClickCallback(item)
                 }

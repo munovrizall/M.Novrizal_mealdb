@@ -3,7 +3,9 @@ package com.artonov.recipebro.ui
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.viewModels
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.artonov.recipebro.R
@@ -31,6 +33,7 @@ class FavoriteActivity : AppCompatActivity() {
                     errorText.isVisible = true
                 }
             } else {
+                Log.d("test", res.toString())
                 binding.rvFavoriteList.apply {
                     adapter = favoriteAdapter
                     setHasFixedSize(true)
@@ -39,20 +42,24 @@ class FavoriteActivity : AppCompatActivity() {
                     )
                 }
 
-//                favoriteAdapter.apply {
-//                    setData(res)
-//                    setOnItemClickCallback(object:FavoriteAdapter.IOnFavoriteItemCallBack{
-//                        override fun onFavoriteItemClickCallback(data: MealEntity) {
-//                            val detailFavorite = Intent(this@FavoriteActivity, FavoriteDetailActivity::class.java)
-//                            detailFavorite.putExtra(FavoriteDetailActivity.EXTRA_FAVORITE_GAME,data)
-//                            startActivity(detailFavorite)
-//                        }
-//                    })
-//                }
-//            }
+                favoriteAdapter.apply {
+                    setData(res)
+                    setOnItemClickCallback(object:FavoriteAdapter.IOnFavoriteItemCallBack{
+                        override fun onFavoriteItemClickCallback(data: MealEntity) {
+                            val detailFavorite = Intent(this@FavoriteActivity, FavoriteDetailActivity::class.java)
+                            detailFavorite.putExtra(FavoriteDetailActivity.EXTRA_FAVORITE_MEAL,data)
+                            startActivity(detailFavorite)
+                        }
+                    })
+                }
             }
+
+            val colorStateList = ContextCompat.getColorStateList(this, R.color.bottom_nav_item_color)
+
             binding.apply {
                 bottomNavigationView.menu.getItem(1).setChecked(true)
+                bottomNavigationView.itemTextColor = colorStateList
+                bottomNavigationView.itemIconTintList = colorStateList
                 bottomNavigationView.setOnNavigationItemSelectedListener { item ->
                     when (item.itemId) {
                         R.id.MainActivity -> {

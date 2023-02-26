@@ -1,10 +1,12 @@
 package com.artonov.recipebro.ui
 
 import android.content.Intent
+import android.content.res.ColorStateList
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.viewModels
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.artonov.recipebro.R
@@ -13,6 +15,7 @@ import com.artonov.recipebro.data.network.handler.NetworkResult
 import com.artonov.recipebro.databinding.ActivityMainBinding
 import com.artonov.recipebro.model.MealsItem
 import com.artonov.recipebro.viewmodel.MainViewModel
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomnavigation.LabelVisibilityMode
 import com.google.android.material.navigation.NavigationBarView
 
@@ -73,21 +76,28 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        binding.bottomNavigationView.setOnNavigationItemSelectedListener {item ->
-            when(item.itemId) {
-                R.id.MainActivity -> {
-                    true
+        val colorStateList = ContextCompat.getColorStateList(this, R.color.bottom_nav_item_color)
+        binding.apply {
+            bottomNavigationView.itemTextColor = colorStateList
+            bottomNavigationView.itemIconTintList = colorStateList
+            bottomNavigationView.setOnNavigationItemSelectedListener {item ->
+                when(item.itemId) {
+                    R.id.MainActivity -> {
+                        true
+                    }
+                    R.id.FavoriteActivity -> {
+                        val intent = Intent(this@MainActivity, FavoriteActivity::class.java)
+                        startActivity(intent)
+                        overridePendingTransition(0, 0)
+                        true
+                    }
+                    else -> {true}
                 }
-                R.id.FavoriteActivity -> {
-                    val intent = Intent(this@MainActivity, FavoriteActivity::class.java)
-                    startActivity(intent)
-                    overridePendingTransition(0, 0)
-                    true
-                }
-                else -> {true}
-            }
 
+            }
         }
+
+
     }
 
     private fun handleUi(
