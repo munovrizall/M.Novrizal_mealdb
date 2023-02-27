@@ -66,6 +66,7 @@
             android:id="@+id/recipe_favorite_detail_wrapper"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="64dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
@@ -196,26 +197,6 @@
                 app:layout_constraintTop_toBottomOf="@+id/tvCookingInstructions"
                 tools:text="@string/str_instructions" />
 
-            <Button
-                android:id="@+id/btnFavoriteDetail"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:layout_marginHorizontal="16dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="16dp"
-                android:backgroundTint="@color/red"
-                android:text="Remove From favorite"
-                android:textColor="@color/white"
-                android:fontFamily="@font/poppins_semibold"
-                app:cornerRadius="16dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvFavoriteDetailInstruction"
-                app:layout_constraintVertical_bias="0.531" />
 
             <ImageView
                 android:id="@+id/btnWeb"
@@ -237,6 +218,28 @@
                 app:srcCompat="@drawable/ic_youtube" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
+
+    <Button
+        android:id="@+id/btnFavoriteDetail"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:layout_gravity="bottom"
+        android:backgroundTint="@color/red"
+        android:text="Remove From favorite"
+        android:textColor="@color/white"
+        android:fontFamily="@font/poppins_semibold"
+        app:cornerRadius="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvFavoriteDetailInstruction"
+        app:layout_constraintVertical_bias="0.531" />
 
     <ProgressBar
         android:id="@+id/progressBar"
