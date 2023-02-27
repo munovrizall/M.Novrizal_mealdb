@@ -1,10 +1,12 @@
 package com.artonov.recipebro.ui
 
 import android.content.Intent
+import android.graphics.Typeface
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.MenuItem
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
@@ -34,6 +36,13 @@ class DetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        setSupportActionBar(binding.toolBar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        binding.apply {
+            collapsingToolbar.setExpandedTitleTextAppearance(R.style.CollapsingToolbarLayoutExpandedTextStyle);
+            collapsingToolbar.setCollapsedTitleTextAppearance(R.style.CustomAppBarTextStyle);
+        }
 
         val recipe = intent.getParcelableExtra<MealsItem>(EXTRA_RECIPE)
         Log.d("test", recipe.toString())
@@ -96,10 +105,19 @@ class DetailActivity : AppCompatActivity() {
                 }
             }
         }
-
-
         isFavoriteMeal(recipe)
+    }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> {
+                // Handle back button click here
+                onBackPressed()
+                overridePendingTransition(0, 0)
+                return true
+            }
+            else -> return super.onOptionsItemSelected(item)
+        }
     }
 
     private fun isFavoriteMeal(mealSelected: MealsItem) {

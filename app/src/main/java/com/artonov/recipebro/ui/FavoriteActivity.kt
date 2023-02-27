@@ -29,6 +29,30 @@ class FavoriteActivity : AppCompatActivity() {
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
 
+        val colorStateList = ContextCompat.getColorStateList(this, R.color.bottom_nav_item_color)
+
+        binding.apply {
+            bottomNavigationView.menu.getItem(1).setChecked(true)
+            bottomNavigationView.itemTextColor = colorStateList
+            bottomNavigationView.itemIconTintList = colorStateList
+            bottomNavigationView.setOnNavigationItemSelectedListener { item ->
+                when (item.itemId) {
+                    R.id.MainActivity -> {
+                        val intent = Intent(this@FavoriteActivity, MainActivity::class.java)
+                        startActivity(intent)
+                        overridePendingTransition(0, 0)
+                        true
+                    }
+                    R.id.FavoriteActivity -> {
+                        true
+                    }
+                    else -> {
+                        true
+                    }
+                }
+            }
+        }
+
         favoriteViewModel.favoriteMealList.observe(this) { res ->
             if (res.isEmpty()) {
                 binding.apply {
@@ -57,30 +81,7 @@ class FavoriteActivity : AppCompatActivity() {
                 }
             }
 
-            val colorStateList = ContextCompat.getColorStateList(this, R.color.bottom_nav_item_color)
 
-            binding.apply {
-                bottomNavigationView.menu.getItem(1).setChecked(true)
-                bottomNavigationView.itemTextColor = colorStateList
-                bottomNavigationView.itemIconTintList = colorStateList
-                bottomNavigationView.setOnNavigationItemSelectedListener { item ->
-                    when (item.itemId) {
-                        R.id.MainActivity -> {
-                            val intent = Intent(this@FavoriteActivity, MainActivity::class.java)
-                            startActivity(intent)
-                            overridePendingTransition(0, 0)
-                            true
-                        }
-                        R.id.FavoriteActivity -> {
-                            true
-                        }
-                        else -> {
-                            true
-                        }
-                    }
-
-                }
-            }
         }
     }
 

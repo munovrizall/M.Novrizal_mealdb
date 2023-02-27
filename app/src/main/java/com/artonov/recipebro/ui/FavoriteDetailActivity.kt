@@ -4,6 +4,7 @@ import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MenuItem
 import android.widget.Toast
 import androidx.activity.viewModels
 import com.artonov.recipebro.R
@@ -21,8 +22,17 @@ class FavoriteDetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityFavoriteDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        setSupportActionBar(binding.toolBar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         val favoriteMeal = intent.getParcelableExtra<MealEntity>(EXTRA_FAVORITE_MEAL)
+
+        binding.apply {
+            collapsingToolbar.setExpandedTitleTextAppearance(R.style.CollapsingToolbarLayoutExpandedTextStyle)
+            collapsingToolbar.setCollapsedTitleTextAppearance(R.style.CustomAppBarTextStyle)
+            collapsingToolbar.title = favoriteMeal?.meal?.strMeal
+        }
+
 
         binding.apply {
             Glide.with(this@FavoriteDetailActivity)
@@ -60,6 +70,18 @@ class FavoriteDetailActivity : AppCompatActivity() {
             val delete = Intent(this, FavoriteActivity::class.java)
             startActivity(delete)
             finish()
+        }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> {
+                // Handle back button click here
+                onBackPressed()
+                overridePendingTransition(0, 0)
+                return true
+            }
+            else -> return super.onOptionsItemSelected(item)
         }
     }
 
