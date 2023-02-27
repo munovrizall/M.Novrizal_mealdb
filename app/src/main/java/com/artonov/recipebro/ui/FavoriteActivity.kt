@@ -4,6 +4,8 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
@@ -25,6 +27,7 @@ class FavoriteActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityFavoriteBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        setSupportActionBar(binding.toolbar)
 
         favoriteViewModel.favoriteMealList.observe(this) { res ->
             if (res.isEmpty()) {
@@ -78,6 +81,23 @@ class FavoriteActivity : AppCompatActivity() {
 
                 }
             }
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        val inflater = menuInflater
+        inflater.inflate(R.menu.menu_appbar, menu)
+        return true
+    }
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.aboutActivity -> {
+                val intent = Intent(this, AboutActivity::class.java)
+                startActivity(intent)
+                overridePendingTransition(0, 0)
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
         }
     }
 }

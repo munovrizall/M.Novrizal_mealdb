@@ -6,4 +6,9 @@
     <string name="cooking_instructions">Cooking instructions</string>
     <string name="add_to_favorite">Add to favorite</string>
     <string name="failed_to_fetch_data">failed to fetch data</string>
+    <string name="about">About</string>
+    <string name="github">github.com/munovrizall</string>
+    <string name="linkedin">linkedin.com/in/munovrizall/</string>
+    <string name="instagram">instagram.com/munovrizall</string>
+    <string name="about_desc">Made with love by:\n<b>Mohammad Novrizal Sugiarto</b>\nto complete the final task in android bootcamp IDNetworkers</string>
 </resources>

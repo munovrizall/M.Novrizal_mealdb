@@ -73,4 +73,7 @@ dependencies {
 
     //ViewModel
     implementation "androidx.activity:activity-ktx:1.6.1"
+
+    //Lottie
+    implementation 'com.airbnb.android:lottie:6.0.0'
 }
