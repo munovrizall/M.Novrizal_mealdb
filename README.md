@@ -11,4 +11,4 @@ Recipe Bro is an app that contains food recipes utilizing the mealdb API
 - Lottie to show animation
 
 ## Screenshot :
-<img src="https://github-production-user-asset-6210df.s3.amazonaws.com/85984439/282795617-a4c2c510-2746-4b18-9d0c-7d6db48113e2.png" width="500">
+<img src="https://github-production-user-asset-6210df.s3.amazonaws.com/85984439/282795617-a4c2c510-2746-4b18-9d0c-7d6db48113e2.png">
